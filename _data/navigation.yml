@@ -1,0 +1,6 @@
+- name: knowledge
+  link: /knowledge
+- name: programming
+  link: /programming
+- name: daily
+  link: /daily

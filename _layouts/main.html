@@ -3,16 +3,102 @@ layout: default
 ---
 
 <aside class="sidebar">
-  <header>
+  <header> <!-- start Header -->
     <div class="about">
       <div class="cover-author-image">
         <a href="{{site.baseurl}}/"><img src="{{site.baseurl}}/assets/img/{% if site.author-img %}{{site.author-img}}{% endif %}" alt="{{site.author}}"></a>
       </div>
       <div class="author-name">{{site.author}}</div>
-      <p>{{site.about-author}}</p>
+        <p>{{site.about-author}}</p>
     </div>
   </header> <!-- End Header -->
-  <footer>
+  <body> <!-- Start Body -->
+
+    <nav id="nav">
+			<div id="menus">
+				<!-- <p>
+					<a class="navbar-brand text-white" href="/">&nbsp;&nbsp;&nbsp;{{ site.title }}!&nbsp;&nbsp;&nbsp;</a>
+				</p> -->
+				<ul id="category-list">
+          
+          <!-- <li>
+						<a href="/about.me">
+							<div class="menu">
+								<span> About </span>
+							</div>
+						</a>
+					</li>
+				 -->
+					<li>
+						<div class="menu-wrapper">
+							<a href="/category/knowledge">
+								<div class="menu">
+									<span> Knowledge </span>
+								</div>
+							</a>
+							<div class="menu-item">
+								<a href="/category/knowledge/algorithms">Algorithms</a>
+							</div>
+						</div>
+					</li>
+				
+					<li>
+						<div class="menu-wrapper">
+								<a href="/category/programming">
+									<div class="menu">
+										<span> Programming </span>
+									</div>
+								</a>
+								<div class="menu-item">
+									<a href="/category/programming/python">Python</a>
+								</div>
+						</div>
+					</li>
+
+					<!-- <li>
+						<div class="menu-wrapper">
+								<a href="/category/projects">
+									<div class="menu">
+										<span> Projects </span>
+									</div>
+								</a>
+							<div class="menu-item">
+								<a href="/category/projects/project">Project</a>
+							</div>
+            </div> 
+          </li> -->
+
+					<li>
+						<div class="menu-wrapper">
+								<a href="/category/daily">
+									<div class="menu">
+										<span> Daily </span>
+									</div>
+								</a>
+							<div class="menu-item">
+								<a href="/category/daily/workout">Workout</a>
+							</div>
+            </div> 
+          </li>
+
+				</ul>
+			</div>
+
+			<!-- <div id="menus-right">
+				<div id="search-section">
+					<div class="input-wrapper">
+						<span class="fa fa-search"></span>
+						<input type="text" id="search-input" placeholder="Please input specific keyword :)" size="30">
+					</div>
+					<div id="results-container"></div>
+        </div>
+        
+			</div> -->
+			
+    </nav>
+    
+  </body> <!-- End Body -->
+  <footer> 
     <section class="contact">
       <h3 class="contact-title">Contact me</h3>
       <ul>
