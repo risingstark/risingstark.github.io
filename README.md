@@ -4,10 +4,10 @@
 
 ---
 
-My blog contains programming, projects and daily-workout parts.
+My blog contains knowledge related to computer science, programming and daily stuff.
 
-* Programming: Basic Algorithm, Python programming
-* Projects: Currently developing projects goes here
-* Daily-Workout: Aggregation of my workout knowledge 
+* Knowledge: Basic Algorithm, Data Structures, OS, Network, etc.
+* Programming: Python, Java, coding related stuff.
+* Daily: My daily interesting stuff and aggregation of workout knowledge. 
 
 You can check it out [here](https://risingstark.github.io)
