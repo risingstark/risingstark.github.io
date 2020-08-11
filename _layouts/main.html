@@ -14,21 +14,14 @@ layout: default
   </header> <!-- End Header -->
   <body> <!-- Start Body -->
 
+	<div class="category-box">
     <nav id="nav">
 			<div id="menus">
 				<!-- <p>
 					<a class="navbar-brand text-white" href="/">&nbsp;&nbsp;&nbsp;{{ site.title }}!&nbsp;&nbsp;&nbsp;</a>
 				</p> -->
 				<ul id="category-list">
-          
-          <!-- <li>
-						<a href="/about.me">
-							<div class="menu">
-								<span> About </span>
-							</div>
-						</a>
-					</li>
-				 -->
+
 					<li>
 						<div class="menu-wrapper">
 							<a href="/category/knowledge">
@@ -37,11 +30,14 @@ layout: default
 								</div>
 							</a>
 							<div class="menu-item">
-								<a href="/category/knowledge/algorithms">Algorithms</a>
+								<!-- <a href="/category/knowledge/algorithms">Algorithms</a> -->
 							</div>
 						</div>
 					</li>
-				
+				</ul>
+
+				<ul id="category-list">
+
 					<li>
 						<div class="menu-wrapper">
 								<a href="/category/programming">
@@ -50,23 +46,13 @@ layout: default
 									</div>
 								</a>
 								<div class="menu-item">
-									<a href="/category/programming/python">Python</a>
+									<!-- <a href="/category/programming/python">Python</a> -->
 								</div>
 						</div>
 					</li>
-
-					<!-- <li>
-						<div class="menu-wrapper">
-								<a href="/category/projects">
-									<div class="menu">
-										<span> Projects </span>
-									</div>
-								</a>
-							<div class="menu-item">
-								<a href="/category/projects/project">Project</a>
-							</div>
-            </div> 
-          </li> -->
+				</ul>
+				
+				<ul id="category-list">
 
 					<li>
 						<div class="menu-wrapper">
@@ -76,10 +62,10 @@ layout: default
 									</div>
 								</a>
 							<div class="menu-item">
-								<a href="/category/daily/workout">Workout</a>
+								<!-- <a href="/category/daily/workout">Workout</a> -->
 							</div>
-            </div> 
-          </li>
+            			</div> 
+          			</li>
 
 				</ul>
 			</div>
@@ -96,11 +82,11 @@ layout: default
 			</div> -->
 			
     </nav>
-    
+	</div>
   </body> <!-- End Body -->
   <footer> 
     <section class="contact">
-      <h3 class="contact-title">Contact me</h3>
+      <h3 class="contact-title">About me</h3>
       <ul>
         {% if site.social-github %}
           <li class="github"><a href="http://github.com/{{site.social-github}}" target="_blank"><i class="fa fa-github"></i></a></li>

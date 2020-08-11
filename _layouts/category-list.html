@@ -7,7 +7,7 @@ layout: main
 		<h1 class="category-header">{{ page.category }}</h1>
 		{% for sub_category in page.sub_categories %}
 		{% assign posts = site.posts | where: "categories", sub_category %}
-			<h2 class="category-name"><a href="/category/{{ page.category | downcase }}/{{ sub_category | downcase }}">{{ sub_category }}</a></h2>
+			<h2 class="category-name">{{ sub_category }}</a></h2>
 			<hr>
 			{% for post in posts %}
 				<p class="category-item">
