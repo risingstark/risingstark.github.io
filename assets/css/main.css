@@ -787,8 +787,14 @@ h1 {
 
 img {
   max-width: 100%;
-  vertical-align: middle;
+  vertical-align: middle; 
   display: inline-block;
+}
+
+/* customized- put image center. add #center at the end of image. ex blah.jpg#center */
+img[src*='#center'] { 
+  display: block; 
+  margin: auto; 
 }
 
 img + em {
