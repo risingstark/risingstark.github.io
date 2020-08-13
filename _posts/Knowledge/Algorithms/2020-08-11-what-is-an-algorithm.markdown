@@ -35,7 +35,7 @@ tags: [Algorithms] # add tag
 ![Algorithms-classification]({{site.baseurl}}/assets/img/Knowledge/Algorithms/2020-08-12/algorithms_classification.png#center)
 <br>
 
-알고리즘을 분류하는 방법에는 여러가지가 존재한다. 표에서는 당장 생각나는 알고리즘을 정리해놓았다. 이것 말고도 현재 존재하는 알고리즘은 수십,수백가지가 달하며 우주항공, 생명공학, 핵원자, 의료산업등 분야별로 알고리즘을 선택해서 개발하고 사용한다. 표에 적힌 알고리즘은 앞으로 하나 하나 자세하게 풀어서 설명할 계획이니 해당 블로그의 ***Knowledge - Algoritms*** 섹션을 찹고하자.
+알고리즘을 분류하는 방법에는 여러가지가 존재한다. 표에서는 당장 생각나는 알고리즘을 정리해놓았다. 이것 말고도 현재 존재하는 알고리즘은 수십,수백가지가 달하며 우주항공, 생명공학, 핵원자, 의료산업등 분야별로 알고리즘을 선택해서 개발하고 사용한다. 표에 적힌 알고리즘은 앞으로 하나 하나 자세하게 풀어서 설명할 계획이니 해당 블로그의 ***Knowledge - Algoritms*** 섹션을 참고하자.
 
 <br>
 
@@ -62,7 +62,8 @@ tags: [Algorithms] # add tag
 <br>
 
 ### 마치며
-
+머리로 생각하는것보다 역시 기록으로 남기고 정리를 하는것이 기억에 도움이 많이 된다. 프로그래머로서 알고리즘은 필수이자 평생 알아야 하는 중요한 주제이다. 앞으로 틈틈히 시간이 날때마다 알고리즘 포스트를 올리면서 정리를 할 생각이다.<br> 
+**정리의 힘! 오늘도 어제보다 나은 나를 위해.**
 
 ### reference
 [\[Definition-of-Algorithms/wiki\]](https://en.wikipedia.org/wiki/Algorithm) <br>
