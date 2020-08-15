@@ -14,7 +14,7 @@ tags: [Algorithm, Greedy] # add tag
 
 <br>
 
-### Greedy Algorithms 정의(Definition of Algorithm)
+### Greedy Algorithm 정의
 ***Greedy Algorithm***은 단어 뜻에서도 알 수 있듯이 탐욕적인 방식으로 문제를 풀어나가는 알고리즘이다. <ins>***단순 미래를 생각하지 않고 당장 지금 최적의 해를 구해 전체적인 답***</ins>을 구하는 것이다. 하지만 인생이 그러하듯 순간 순간 최선이라고 생각했던 답이 향후 최고의 답만을 항상 내어 놓진 않는다. 간단한 예로, 마시멜로 실험을 들어보자. 실제 1970년대 스탠포드에서 어린이들을 대상으로 하나의 마시멜로를 주고 15분을 기다리면 하나를 더 주겠다는 실험이다. 순간의 탐욕을 절제하면 추가로 하나의 마시멜로를 더 얻지만, 대부분의 아이들은 눈앞에 놓인 마시멜로를 입에 넣으며 미소를 짓는다. 15분을 기다리면 2개를 얻을 수 있음에도 불구하고..
 
 그러면 ***Greedy Algorithm*** 을 언제 사용 할 수 있을까? 최적의 답을 구하기위해 ***Greedy Algorithm***은 <ins>**두 가지 조건**</ins>을 만족하는 문제를 풀때 유용하게 쓸 수 있다.
@@ -30,7 +30,7 @@ tags: [Algorithm, Greedy] # add tag
 
 ### Greedy Algorithm 예시
 
-#### 거스름돈 문제(Exchange Prlblem)
+#### 거스름돈 문제(Exchange Problem)
 
 ![Greedy-Algoritm-Coins]({{site.baseurl}}/assets/img/Knowledge/Algorithms/2020-08-13/greedy-algorithm-coins.jpg#center)
 
