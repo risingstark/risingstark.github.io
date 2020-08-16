@@ -10,7 +10,7 @@ tags: [Data Structure,Queue] # add tag
 ---
 
 ### 들어가며
-살면서 새치기를 해본적이 있는가? 아니면 당해본적이 있는가? 필자는 법과 도덕을 중시하는 사람이라 새치기를 볼때마다 마음이 불편하고 한편으로 아프다. 그럴때마다 줄 서는것을 **Queue**로 구현하면 좋을텐데 라고 생각한다(실제로는 **Queue** 형태이지만, 안지켜진다...) 이 글에서는 자료구조에서 중요한 역할을 하고 있는 **Queue**에 대해 알아보겠다. 개인적으로 이 **Queue**가 <ins>**민주적인 놈?!**</ins>이라 그런지 참 좋아한다. 그 이유는 먼저 들어온놈이 먼저 나가기 때문이다. 
+살면서 새치기를 해본적이 있는가? 아니면 당해본적이 있는가? 필자는 법과 도덕을 중시하는 사람이라 새치기를 볼때마다 마음이 불편하고 한편으로 아프다. 그럴때마다 줄 서는것을 **Queue**로 구현하면 좋을텐데 라고 생각한다(실제로는 **Queue** 형태이지만, 안지켜진다...) 이 글에서는 자료구조에서 중요한 역할을 하고 있는 **Queue**에 대해 알아보자. 개인적으로 이 **Queue**가 <ins>**민주적인 놈?!**</ins>이라 그런지 마음에 든다. 그 이유는 먼저 들어온놈이 먼저 나가기 때문이다. 
 
 <br>
 
@@ -19,8 +19,8 @@ tags: [Data Structure,Queue] # add tag
 
 ![Data-Structure-Queue]({{site.baseurl}}/assets/img/Knowledge/Data_Structure/2020-08-16-queue/Data-Structure-Queue.png#center)
 
-**Queue**를 구성하는 함수는 기본적으로 4가지가 된다. **Queue()**를 간단히 **q**로 가정했을때,
-- **q.add(item)** or **q.enqueue(item)**: item을 **큐의 끝부분에 삽입**한다. 큐가 꽉 차서 더이상 item을 넣을 수 없는 경우 <ins>***overflow***</ins>가 발생한다
+**Queue**를 구성하는 함수는 기본적으로 4가지로 구성된다. **Queue()**를 간단히 **q**로 가정했을때,
+- **q.add(item)** or **q.enqueue(item)**: item을 **큐의 끝 부분에 삽입**한다. 큐가 꽉 차서 더이상 item을 넣을 수 없는 경우 <ins>***overflow***</ins>가 발생한다
 - **q.remove()** or **q.dequeue()**: q의 첫번째 item을 **반환 및 제거**한다. q가 비어 있을경우 반환 및 삭제할 item이 없기 때문에 <ins>***underflow***</ins>가 발생한다.
 - **q.peek()**: q의 첫번째 item을 반환한다(**삭제는 하지 않는다!!**). q가 비어 있을경우 역시 <ins>***underflow***</ins>가 발생한다.
 - **q.isEmpty()**: q가 비어 있을 경우 **'1'** 혹은 **'True'**를 반환하고 그 반대는 **'0'** 혹은 **'False'**를 반환한다. 
@@ -39,7 +39,7 @@ tags: [Data Structure,Queue] # add tag
 
 <br>
 
-#### 2. 원형큐(Circled-Queue)
+#### 2. 원형큐(Circular-Queue)
 :**순환큐**라고도 불리는 이 형태는 배열의 **처음과 끝을 이어놓은 형태**이다. 즉, <ins>**물리적으로는 일직선이나 논리적으로는 원형**</ins>을 나타낸다.
 ![Data-Structure-Circled-Queue]({{site.baseurl}}/assets/img/Knowledge/Data_Structure/2020-08-16-queue/Data-Structure-Circular-Queue.png#center)
 - **장점**: 직선큐의 단점을 보완할 수 있다. 
@@ -47,9 +47,9 @@ tags: [Data Structure,Queue] # add tag
 
 <br>
 
-#### 3. 링크드 큐(linked-Queue with sinled-linked-List)
-:***Linked-List***의 기본 단위인 **node**를 기반으로 만들어진 **Queue**이다. 원형큐의 원리와 비슷하게 각각의 노드들은 다음 노드의 주소값을 가지고 있고 노드의 방향은 **전단(front)**에서 **후단(rear)**으로 이루어져 있다.
-<br> **note**: 이 글에서는 간단히 **singled-linked-list**로의 예로만 제시하겠다. **Doubled & Circular-Linked-List**는 **knowledge - Data Structure**를 참고하자)
+#### 3. 링크드 큐(Linked-Queue with Singled-Linked-List)
+:***Linked-List***의 기본 단위인 **node**를 기반으로 만들어진 **Queue**이다. 직선큐 원리와 비슷하지만 각각의 노드들은 다음 노드의 주소값을 가지고 있고 노드의 방향은 **전단(front)**에서 **후단(rear)**으로 이루어져 있다. (만약 원형큐로 구현하고 싶다면 마지막 node의 다음 노드 주소를 front 가 가리키는 노드의 주소값으로 설정하면 된다)
+<br> **note**: 이 글에서는 간단히 **singled-linked-list**로의 예로만 제시하겠다. **Doubled & Circular-Linked-List**는 **knowledge - Data Structure**에 있는 **Linked List** 포스트를 참고하자)
 
 ![Data-Structure-Linked-Queue]({{site.baseurl}}/assets/img/Knowledge/Data_Structure/2020-08-16-queue/Data-Structure-Linked-Queue.gif#center)
 -**장점**: 구현이 간단하고 용량에 제한이 없어 효율적이다.
@@ -63,7 +63,6 @@ class Node:
    def __init__(self, data):
        self.data = data # Assign data
        self.next = None # Initialize next as null
-       self.prev = None # Initialize prev as null
  
 # Queue class contains a Node object
 class Queue:
@@ -77,7 +76,6 @@ class Queue:
            self.last =self.head
        else:
            self.last.next = Node(data)
-           self.last.next.prev=self.last
            self.last = self.last.next
              
    def dequeue(self):
@@ -86,7 +84,6 @@ class Queue:
        else:
            temp= self.head.data
            self.head = self.head.next
-           self.head.prev=None
            return temp
  
    def peek(self):
@@ -113,8 +110,9 @@ class Queue:
            print(temp.data,end="->")
            temp=temp.next
 ```
+
 #### 4. 우선순위 큐(Priority Queue)
-: 컴퓨터 과학에서는 우선순위 큐(**Priority Queue**)는 평범한 큐와 스택과 비슷한 축약 자료형이라고 할 수 있다. 다만 <ins>**각각의 원소들은 우선순위**</ins>를 가지고 있다는게 차이점일뿐이다. 우선순위는 설명할것이 많이 있기 때문에 따로 자세한 내용은 **Knowledge - Data Structure** 섹션에 있는 **Priority Queue**를 참고하자 
+: 컴퓨터 과학에서의 우선순위 큐(**Priority Queue**)는 평범한 큐와 스택과 비슷한 축약 자료형이라고 할 수 있다. 다만 <ins>**각각의 원소들은 우선순위**</ins>를 가지고 있다는게 차이점이다. 우선순위는 설명할것이 많이 있기 때문에 자세한 내용은 **Knowledge - Data Structure** 섹션에 있는 **Priority Queue**를 참고하자 
 
 <br>
 
