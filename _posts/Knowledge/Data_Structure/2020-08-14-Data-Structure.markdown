@@ -6,7 +6,7 @@ description:  # Add post description (optional)
 img:  Knowledge/Data_Structure/2020-08-15/Data-Structure-main.jpeg
 fig-caption: # Add figcaption (optional)
 category: [Knowledge,Data Structure]
-tags: [Algorithm, Data Structure] # add tag
+tags: [Data Structure] # add tag
 ---
 
 ### 들어가며
