@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hash, Hash Map, Hash Table, Hash Function, Hash Brown?!
+title: Hash Table, Hash Brown?!
 date: 2020-08-18 00:00:00 +0300
 description:  # Add post description (optional)
 img:  Knowledge/Data_Structure/2020-08-18-hash-table/Data-Structure-Hash-Table-Main.jpg
