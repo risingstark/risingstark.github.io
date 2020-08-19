@@ -5,12 +5,12 @@ date: 2020-08-18 00:00:00 +0300
 description:  # Add post description (optional)
 img:  Knowledge/Data_Structure/2020-08-18-hash-table/Data-Structure-Hash-Table-Main.jpg
 fig-caption: # Add figcaption (optional)
-category: [Knowledge,Data Structure, Hash Table]
-tags: [Data Structure, Data Structure, Hash Table, Hash Function]
+category: [Knowledge,Data Structure,Hash Table]
+tags: [Data Structure,Data Structure,Hash Table]
 ---
 
 ### 들어가며
-- 앞서 **자료구조(Data Structure)**는 데이터의 관계, 저장, 처리 및 함수들의 집합이라고 설명했다. 자료구조를 얼마나 잘 활용을 하느냐에 따라, 사용해야하는 메모리를 줄일 수 있으며, 한정적인 컴퓨터의 저장공간을 효율적으로 사용 할 수 있다. 마치 도서관에 책을 잘 정리해두면 단순 컴퓨터 검색만으로 원하는 책을 쉽게 찾을 수 있듯이 말이다. 이 글에서는 **Hash Table** 이라는 중요한 자료구조에 대해서 알아보자.
+- 앞서 **자료구조(Data Structure)**는 데이터의 관계, 저장, 처리 및 함수들의 집합이라고 설명했다. 자료구조를 얼마나 잘 활용을 하느냐에 따라, 사용되는 메모리를 줄일 수 있으며, 한정적인 컴퓨터 저장공간을 효율적으로 사용 할 수 있다. 마치 도서관에 책을 잘 정리해두면 단순 컴퓨터 검색만으로 원하는 책을 쉽게 찾을 수 있듯이 말이다. 이 글에서는 **Hash Table** 자료구조에 대해서 알아보자.
 
 <br>
 
