@@ -1,0 +1,102 @@
+---
+layout: post
+title: Operating System - 1. Process
+date: 2020-09-04 00:00:00 +0300
+description:  # Add post description (optional)
+img:  Knowledge/Operating_System/2020-09-04-process/Operating_System_Process_Main.jpg
+fig-caption: # Add figcaption (optional)
+category: [Knowledge,Operating System]
+tags: [Operating System,Process]
+---
+
+### 1. 들어가며
+- **프로세스(Process) 정의**
+- **프로세스(Process) 구성과 구조**
+- **Program VS Process**
+- **프로세스(Process) 관리**
+
+<br>
+
+### 2. 프로세스(Process) 정의
+: 프로세스(**process**)는 컴퓨터에서 연속적으로 **실행되고 있는 컴퓨터 프로그램**을 말한다. 종종 스케줄링의 대상이 되는 작업(**task**)이라는 용어와 거의 같은 의미로 쓰인다. 여러 개의 프로세서를 사용하는 것을 **멀티프로세싱**이라고 하며 같은 시간에 여러 개의 프로그램을 띄우는 시분할 방식을 **멀티태스킹**이라고 한다. 프로세스 내부에는 최소한 하나의 쓰레드(**Thread**)를 가지고 있으며, 쓰레드 단위로 작업을 스케줄링하여 처리한다.
+
+아래 그림은 프로세스의 정보가 **메인메모리(CPU)**에 두가지 형태로 존재할 수 있는 방식을 보여준다.
+
+![Operating-System-Process-Example]({{site.baseurl}}/assets/img/Knowledge/Operating_System/2020-09-04-process/Operating-System-Process-Example.jpeg#center)
+
+- **PCB**: 운영체제가 프로세스를 관리하고 제어하기위해 프로세스의 정보들을 한 곳에 모아둔 구조체이다. 향후 **문맥교환(Context Switching)**에 필요하다. 프로세스 생성시 CPU에 만들어진다.
+- **Process in memory**: 프로세스가 실행되면서 추가되는 변수 값이나 사용되는 값들이 저장되어있는 공간이다. 
+
+<br>
+
+### 3. 프로세스(Process) 구성과 구조
+- #### 3.1 PCB(Process Control Block)
+![Operating-System-PCB-Example]({{site.baseurl}}/assets/img/Knowledge/Operating_System/2020-09-04-process/Operating-System-PCB.jpg#center)
+
+    - **프로세스 아이디(Process-ID)**: 운영체제가 프로세스를 식별하기 위해 부여한 ID이다.
+    - **프로세스 상태(Process State)**: CPU는 프로세스를 빠르게 교체하기 때문에 프로세스의 상태가 현재 어떤 상태인지 저장한다.
+    - **프로세스 우선순위(Process Priority)**: 스케줄링 및 프로세스 우선순위를 저장한다.
+    - **Accounting Information**: CPU 사용시간, 실제 사용시간을 저장한다.
+    - **프로그램 카운터(Process Counter)**: 현재 프로세스가 다음에 실행할 명령어의 주소를 가리킨다.
+    - **CPU 레지스터 집합**: 컴퓨터 구조에 따라서 다양한 수와 타입을 가진다. 레지스터에는 누산기, 인덱스 레지스터, 스택 레지스터 등이 있다. 나중에 프로세스가 올바르게 실행되도록 인터럽트 발생 시 저장되어야 한다. 
+    - **메모리 관리 정보**: OS에 의해 사용되는 메모리 시스템에 따라 기준 레지스터와 한계 레지스터 값, OS의 메모리 시스템에 따라 페이지 테이블 또는 세그먼트 테이블 등을 저장.
+    - **권한**: 프로세스가 접근할 수 있는 자원을 결정하는 정보이다. 안드로이드의 아무 앱이나 사용자 주소록에 접근할 수 없는 것처럼.
+    - **실행문맥**: CPU에 지속적으로 교체되더라도, 마치 연속적으로 실행되는거처럼 보이는 이유는 이 정보를 갖고있기 때문이다.
+
+- #### 3.2 Process in Memory
+![Operating-System-Process-In-Memory-Example]({{site.baseurl}}/assets/img/Knowledge/Operating_System/2020-09-04-process/Operating-System-Process-In-Memory-Example.png#center)
+
+    - **Code(Text)**: 텍스트 영역은 실행 명령을 포함하는 코드들이 들어가는 부분이다. 프로그램을 시작 할 때 컴파일한 프로그램이 저장되어 있고, 읽기 전용 영역이기에 프로세스가 함부로 변경 할 수 없고 변경 시 오류를 발생시킨다. 그리고 이 영역은 변경되지 않는 불변의 부분이므로 공유 할 수 있는 영역이다.
+    - **Data(Data & BSS)**: 데이터 영역은 BSS와 함께 묶어서 데이터 영역으로 칭하기도 하는데 이는 전역변수와 Static변수가 지정되는 영역이다. 초기화 되지 않은 전역변수들은 BSS에 지정된다.
+    - **Heap**: 동적으로 사용할 데이터들이 저장된다. C언어의 경우 alloc(), calloc(), malloc() 등이 포함되며, 위의 함수들은 free()함수로 할당된 영역을 반납해줘야하므로 동적할당 영역에 속한다.
+    - **Stack**: 스택 영역은 프로그램의 지역변수, 함수, return address 를 포함하고 있다. 함수가 호출되면 할당되었다 함수의 종료시 반납되는 영역이다.
+
+<br>
+
+### 3. Program VS Process
+**Program**은 보조 기억장치(**Hard-Drive, SSD**)에 존재하며 실행되기를 기다리는 명령어(코드)와 정적인 데이터의 집합이다. 실제 하드디스크에 있는 프로그램이 실행되면 그에 상응하는 메모리가 할당이된다. 이 공간으로 바이너리코드가 올라가게 되며 이때부터 **Process**라고 불린다. <br> 즉, **<ins>Program은 Excutable file이고, Process는 Executing file</ins>**이다.
+
+<br>
+
+### 4. 프로세스(Process)s 관리
+커널 내에는 준비 큐, 대기 큐, 실행 큐 등의 자료 구조가 있으며 커널은 이것들을 이용하여 프로세스의 상태를 관리한다.
+
+- #### 4.1 프로세스 기본상태
+    - **생성(New)**: 하드디스크에 프로그램이 저장되어 있는 상태(실행은  아직 되지 않음) 혹은 프로세스가 막 생성된 상태
+    - **준비(ready)**: 프로세스가 CPU를 사용하고 있지는 않지만 언제든지 사용할 수 있는 상태(CPU가 할당되기를 기다리고 있으며 일반적으로 준비 상태의 프로세스 중 우선순위가 높은 프로세스가 CPU를 할당받음)
+    - **실행(Running)**: 프로세스에 포함된 명령어가 실행되고 있는 상태
+    - **대기(Waiting)**: 프로세스가 특정 자원이나 이벤트를 기다리는 상태
+    - **지연대기(Suspended Waiting)**: 프로세스가 대기 상태에서 기억 장치를 잃은 상태
+    - **지연준비(Suspended Ready)**: 프로세스가 기억장치를 제외한 다른 모든 필요한 자원들을 보유한 상태
+    - **종료(Terminated)**: 프로세스가 실행을 완료한 상태
+
+![Operating-System-Process-State-Example]({{site.baseurl}}/assets/img/Knowledge/Operating_System/2020-09-04-process/Operating-System-Process-State-Example.png#center)
+
+
+- #### 4.2 프로세스 상태 변화
+:하나의 프로그램이 실행되면 그 프로그램에 대응되는 프로세스가 생성되어 준비 리스트의 끝에 들어간다. 준비 리스트 상의 다른 프로세스들이 CPU를 할당받아 준비 리스트를 떠나면, 그 프로세스는 점차 준비 리스트의 앞으로 나가게 되고 언젠가 CPU를 사용할 수 있게 된다.
+    - **생성→준비**: 사용자가 프로세스를 실행는 단계, 하드드라이브에 저장되어 있는 프로그램을 메인메모리로 가져(Load)하는 과정
+    - **준비→실행**: **(Dispatch)** - 우선순위가 높은 프로세스 선정하여 명령어 실행
+    - **실행→준비**: **(Timer runout)** - 한 프로세스를 실행 시킬 수 있는 최대시간이 지나면 클럭이 인터럽트를 발생시켜 제어권을 빼앗음(Preemption, 독점 방지)
+    - **실행→대기**: **(Sleep or Block)** - 프로세서가 입출력, 자원 등을 기다리기 위해 대기로 전환
+    - **대기→준비**: **(Wake up)** - 입출력이 완료되거나 자원이 할당되어 준비상태로 이동(주의:바로 실행하는게 아니라 준비단계로 이동)
+    - **Swap-out**: **(Suspend)** - 준비(대기) 상태에서 기억 장치를 반납하고 지연 준비(지연 대기) 상태로 전이
+    - **Swap-in**: **(Resume)** - 지연 준비(지연 대기) 상태에서 기억 장치를 할당받아 준비(대기) 상태로 전이<br>
+
+**note**: 멀티 프로세스의 경우 **ready 상태에서 계속 CPU의 점유권을 못 가져가는 프로세스** 혹은 **asleep 상태에서 ready 상태로 못 넘어가는 프로세스**가 생길 수 있다. 즉, **<ins>여러 개의 프로세스가 ready 상태나 asleep 상태에 있을 수 있다는 뜻</ins>**이다. 이럴때 위의 두 개의 프로세스는 결과적으로 **실행은 잘 되지도 않으면서 메모리에서 자리만 차지**하고 있다. 이런 비효율을 없애기 위해 **secondary storage(HDD, SDD)**로 **swap out** 해준다. **ready** 상태에서 swap out하면 **suspended ready** 상태가 되고, **asleep** 상태에서 swap out하면 **suspended block** 상태가 된다. 이 두 상태에서 추후 필요에 의해 swap in 하여 다시 메모리에 load될 수도 있다. 
+
+<br>
+
+### 5. 마치며
+**갈길이 멀다. 달지자. 오늘도 내일도...**
+
+### reference
+[\[Image-of-Operating-System-Main/Komando\]](https://www.komando.com/downloads/zorin-os-alternative-to-windows-and-apple/535834/) <br>
+[\[Image-of-Operating-System-Process-Example/tistory/operatingsystems\]](https://operatingsystems.tistory.com/entry/OS-프로세스-관리Process-Management) <br>
+[\[Image-of-Operating-System-PCB-Example/velog/pa324\]](https://velog.io/@pa324/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0-18k3jfidll) <br>
+[\[Image-of-Operating-System-Process-In-Memory-Example/crocus\]](https://www.crocus.co.kr/1369) <br>
+[\[Overview-of-Operating-System/wiki\]](https://en.wikipedia.org/wiki/Process_(computing)) <br>
+[\[Operating-System-Program-VS-Process/tistory-jhnyang\]](https://jhnyang.tistory.com/6) <br>
+[\[General-Definition-of-Operating-System-State/coding-factory\]](https://coding-factory.tistory.com/307) <br>
+[\[Operating-System-Process-State/tistory/coding-factory\]](https://coding-factory.tistory.com/300) <br>
+[\[General-Definition-of-Operating-System/tistory-bowbowbow\]](https://bowbowbow.tistory.com/16) <br>
