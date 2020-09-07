@@ -1,0 +1,118 @@
+---
+layout: post
+title: Database - 1. Index
+date: 2020-09-07 00:00:00 +0300
+description:  # Add post description (optional)
+img:  Knowledge/Database/2020-09-07-index/Database-Main.jpg
+fig-caption: # Add figcaption (optional)
+category: [Knowledge,Database]
+tags: [Database,Oracle,MySQL,SQL,Index,Clustered,Non-Clustered,Hash Index,Bitmap Index,B+tree Index]
+---
+
+### 1. 들어가며
+Index 너를 알아보겠다.
+
+<br>
+
+### 2. DB Index 정의
+**<ins>RDBMS에서 대용량의 데이터(레코드)가 있을 때, 특정 데이터를 검색하기 위해서 테이블의 레코드를 full scan하는 것이 아니라, 인덱스가 적용된 컬럼의 테이블(컬럼, 인덱스주소)을 따로 파일로 저장해놓고 그것을 검색해서 검색 효율을 높이는 방법</ins>**이다.
+
+인덱스는 고유 제약 조건을 실현하기 위해서도 사용된다. 고유 인덱스는 중복된 항목이 등록되는 것을 금지하기 때문에 인덱스의 대상인 테이블에서 고유성이 보장된다.
+
+<br>
+
+### 3. 인덱스(Index)의 원리와 목적
+- 일반적인 경우
+    1. select 구문을 통해 데이터 조회요청 발생
+    2. DB 서버 프로세스가 메모리에 존재하는 DB 버퍼 캐시를 확인
+    3. 찾고자하는 테이블이 있을경우 그 값을 찾아 반환(자주 사용하는 Table일경우 DB 버퍼 캐시에 존재할 확률이 높다.)
+    4. 없을경우 하드디스크로 접근하여 Table Full Scan이 이루어진다.(시간 소요가 상당히 크다)
+- Index가 존재할 경우
+    1. select 구문을 통해 데이터 조회요청 발생
+    2. Index Table에 존재하는 Key를 이용해 value(ROWID)를 확인한뒤, 해당 테이블에 있는 실제 데이터로 접근하여 원하는 값을 반환한다.
+
+당연히 Index가 존재할경우 Table Full Scan이 이루어지지 않기때문에 시간 소요가 많이 줄어든다. 이러한 목적으로 Index를 생성하고 사용한다.
+
+<br>
+
+### 4. 인덱스(Index) 알고리즘 종류
+일반적으로 인덱스는 **B+ Tree Index**, **Bitmap Index** 그리고 **Hash Index 알고리즘**으로 나눌 수 있다.
+
+#### 4.1 **B+ 트리 인덱스 알고리즘**
+![Database-Index-B-Tree-Example]({{site.baseurl}}/assets/img/Knowledge/Database/2020-09-07-index/Database-Index-B-Tree-Example.png#center)
+
+- **Root node(Level)**: 경로의 출발점이 되는 루트 노드이며 Branch Node의 정보를 가지고 있다.
+- **Branch Node Level(Non-Leaf Nodes)**: 리프 노드까지의 경로 역할을 하며 리프노드의 정보를 가지고 있다. 처음은 왼쪽 자식노드보다 큰값을, 마지막은 오른쪽 자식노드보다 작은값을 가지고 있어 값을 비교해 경로를 알아갈 수 있다.
+- **leaf nodes(Level)**: 실제 데이터의 주소값(ROWID)이 저장되어 있다.
+
+B+ 트리는 Balanced Tree에서 파생된 트리로, 루트노드부터 리프노드까지 자식 노드의 포인터가 저장되어 있다. 즉, B+트리의 검색은 루트노드에서 어떤 리프 노드에 이르는 한 개의 경로만 검색하면 되므로, 매우 효율적이다. 실시간으로 데이터 입력과 수정이 일어나는 환경인 OLTP(Online Transaction Processing - 실시간 트랜잭션 처리)에 많이 사용된다. 
+
+#### 4.2 **Bitmap 인덱스 알고리즘**
+데이터 값의 종류가 적고 동일한 데이터가 많을 경우에 많이 사용하는데, 예시로 성별(남, 여)로 생각해볼 수 있다. Bitmap index를 생성하려면 데이터의 변경량이 적어야 하고, 값의 종류도 적은 곳이 좋다. 주로 대량의 데이터를 한꺼번에 입력한 후 주로 분석이나 통계 정보를 출력할 때 사용하는 환경인, OLAP(Online Analytical Processing - 온라인 분석 처리)에 많이 사용된다.<br>
+
+- BITMAP INDEX는 어떤 데이터가 어디있다는 지도정보(map)를 Bit로 표시한다. <br>
+- 데이터가 존재하는 곳은 1로, 데이터가 없는 곳은 0으로 표시하고 정보를 찾을때만 1을 찾는다. <br>
+
+SQL > create BITMAP index dex_사원_성별_bit   2  on 사원(성별);<br>
+bitmap index를 생성하면 성별 컬럼 값의 종류대로 map이 생성됨.<br>
+남자 : 1   0   1   0   0<br>
+여자 : 0   1   0   1   1<br>
+
+만약 bitmap index를 사용하고 있는데 만약 컬럼 값이 새로 하나 더 생길 경우? <br>
+기존의 BITMAP INDEX를 전부 수정해야 함. <br>
+-> B-TREE INDEX는 관련 블록만 변경되면 되지만 BITMAP INDEX는 모든 맵을 다 수정해야 한다는 큰 문제점<br>
+-> BITMAP INDEX는 블록 단위로 lock을 설정해서 같은 블록에 들어있는 다른 데이터도 수정작업이 안 되는 경우가 종종 생김 <br>
+
+#### 4.3 **Hash 인덱스 알고리즘**
+![Database-Hash-Index-Example]({{site.baseurl}}/assets/img/Knowledge/Database/2020-09-07-index/Database-Index-Hash-Index-Example.png#center)
+
+- 해시 인덱스는 **동등 비교 검색에는 최적화**되어 있지만 **범위를 검색한다거나 정렬된 결과를 가져오는 목적으로는 사용할 수 없다**.
+    즉, **Where A = 'hello'와 같이 동등비교는 사용가능**하지만, **like, <>, between A and B, 기타등등은 사용할 수 없다.**
+- 해시 인덱스는 **메모리 기반의 테이블에 주로 구현**돼 있으며 **디스크 기반의 대용량 테이블용으로는 거의 사용되지 않는다**는 특징이 있다
+
+<br>
+
+### 5. Index의 구조(Clustered VS Non-Clustered)
+- **Clustered 인덱스**
+    - **테이블당 한개의 Column만 지정해 생성이 가능**하다.(주로 Primary Key)
+    - **Row 데이터를 인덱스로 지정한 열에 맞춰서 자동으로 정렬**한다. 즉, 인덱스 생성시 전체적인 데이터가 Index로 지정한 Column에 의해 정렬된다.
+    - 인덱스 자체가 데이터 페이지이다.**(인덱스 자체에 데이터가 포함)**
+    - Non-Clustered 인덱스 보다 **검색 속도는 더 빠르다**. 하지만 데이터의 입력/수정/삭제는 느리다.
+    - 검색 속도 성능은 뛰어나지만 어느 열을 Clustered Index로 잡느냐에따라 시스템의 성능을 좌우한다.
+
+- **Non-Clustered 인덱스**
+    - **데이터가 입력되는 순서대로 파일에 저장**되고, **인덱스를 만들어서 물리적인 위치의 데이터에 접근**한다.
+    - **별도의 페이지에 인덱스를 구성**한다.
+    - **검색 속도는 느리지만, 데이터의 입력,수정,삭제가 더 빠르다.**
+    - 남용할 경우에는 시스템 성능을 떨어뜨리는 결과를 가져온다.
+
+<br>
+
+### 6. 인덱스(Index)의 사용이 필요할때.
+그럼 우리는 언제 이런 인덱스를 사용해야하는가? 모든 테이블에 대해 인덱스를 생성해주는것이 데이터베이스 성능 향상에 좋은가? 답은 아니다. 절대 절대 아니다. 아래의 조건이 성립될 경우 인덱스의 생성과 사용이 적합하다.
+1. **WHERE절 뒤에 자주 사용되는 컬럼**
+2. **LIKE '%A'는 TABLE SCAN을 탄다.**
+3. **ORDER BY에 자주사용되는 컬럼**
+4. **JOIN으로 자주사용되는 컬럼**
+5. **NOT연산자는 긍정문으로 바꿔서 쓴다.**
+
+note: 왠만해선 **Primary Key에 대한 인덱스를 생성해주는것은 성능향상에 도움**을 준다.
+
+<br>
+
+### 7. 마치며
+인덱스의 무분별한 사용은 오히려 데이터베이스의 용량을 잡아먹고 속도 저하를 불러 일으킬 수도 있다. 배달의민족처럼 상품을 계속 탐색해야 할 경우, 인덱스 생성이 전반적인 제품 성능향상에 도움을 주지만 페이스북이나 트위터처럼 글의 생성과 삭제가 무분별하게 일어날때에는 인덱스를 생성하지 않는편이 좋다. 당연하고 무한한것은 없다. 다만 적제적소에 사용하고 활용할줄 아는것이 삶의 지혜이자 살아가는데 도움을 많이 준다. 오늘도 이러게 하나 배워간다.
+
+<br>
+
+### 8. reference
+[\[Image-of-Database-Main/blogs-oracle/database\]](https://blogs.oracle.com/database/autonomous-database-what-does-it-mean) <br>
+[\[Image-of-Database-Index-B-Tree-Example/tistroy/myjamong\]](https://myjamong.tistory.com/184) <br>
+[\[Image-of-Database-Hash-Index-Example/tistory/ssoonidev\]](https://ssoonidev.tistory.com/12) <br>
+[\[General-idea-of-Database-Index/brunch/skks463\]](https://brunch.co.kr/@skeks463/25) <br>
+[\[Usage-of-Index/tistory/jeong-pro\]](https://jeong-pro.tistory.com/114) <br>
+[\[Difference-between-Clustered-and-Non-Clustered-Index/tistory/gocoder\]](https://gocoder.tistory.com/1826) <br>
+[\[Database-Index-Altorithms/tistory/k39335\]](https://k39335.tistory.com/26) <br>
+[\[Principle-of-Database-Index/lalwr/blogspot\]](https://lalwr.blogspot.com/2016/02/db-index.html) <br>
+[\[Definition-of-Database-Index-characteristics\]](https://victorydntmd.tistory.com/319) <br>
+[\[Definition-of-Hash-Index/tistory/12bme\]](https://12bme.tistory.com/141) <br>
