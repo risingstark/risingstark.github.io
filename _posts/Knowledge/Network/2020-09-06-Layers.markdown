@@ -1,0 +1,86 @@
+---
+layout: post
+title: Network - 1. Protocol & Layers
+date: 2020-09-06 00:00:00 +0300
+description:  # Add post description (optional)
+img:  Knowledge/Network/2020-09-06-protocol-layer/Network-Main.jpg
+fig-caption: # Add figcaption (optional)
+category: [Knowledge,Network]
+tags: [Network,Protocol,OSI-7-Layers,Internet-4-Layers]
+---
+
+### 1. 들어가며
+네트워크의 정의, 종류, 구성요소 등등을 알아보았다. 간략하게 네트워크는 하드웨어 혹은 사용자간의 컴퓨터들을 이어놓은 하나의 통신망이라고 생각하면된다. 다른 대륙에 있는 사용자에게 파일을 보낼때 아주 빠른 속도로 보내는 것이 가능하다. 이런 이유는 여러단계별로 나누어 그 역활에 맞게끔 네트워크를 구성하고 분리했기 때문이다. 이 글에서는 분산되어 있는 계층, 종류, 장점과 단점등에 대해 알아보자.
+
+<br>
+
+### 2. 통신 프로토콜(Protocol) 정의
+: 통신 프로토콜 컴퓨터나 원거리 통신 장비 사이에서 메시지를 주고 받는 양식과 규칙의 체계이다. 즉, **<ins>네트워크상의 통신회로를 통해 컴퓨터 혹은 단말기간 정보를 주고 받는 규칙들의 집합</ins>**이라고 생각하면 된다.
+
+<br>
+
+### 3. 통신 프로토콜의(Protocol) 주요 기능
+- **에러 제어 (Error Control)**: 전송 중 에러 검출 및 에러 정정
+- **캡슐화 (Encapsulation)**: 통신계층 상의 각 계층이 자신 만의 특정제어정보(주로 Header)를 추가하는 것
+- **연결 제어 (Connection Control)** 또는 **세션 관리**: 연결지향적 통신에서 연결설정,데이터전달,연결종료 절차의 제어
+- **순서 제어 (Sequence Control)**: 순서 역전, 중복 패킷 발생 등의 방지
+- **흐름 제어 (Flow Control)**: 보낼 데이터량/전송률의 제한
+- **혼잡 제어 (Congestion Control)**: 포화/대기 패킷 수의 제한을 위한 제어 기법
+- **동기화 (Synchronization)**: 송수신 양측 간에 시간 관계(주로,위상)의 일치
+- **주소 지정 (Addressing)**: 데이터 목적지에 해당하는 정보
+- **단편화 및 재조립 (Segmentation and Reassembly, Fragmentation and Reassembly)**
+- **데이터의 형식화 (Data Formatting)**
+- 기타등등...
+
+<br>
+
+### 4. 네트워크 계층 모델(OSI-7-Layers VS TCP/IP)
+![Network-Layers-Example]({{site.baseurl}}/assets/img/Knowledge/Network/2020-09-06-protocol-layer/Network-Layers-Example.png#center)
+
+#### 4.1 OSI-7-Layers
+: 국제표준화기구(ISO)에서 1984년에 발표한 OSI(Open Systems Interconnection Reference Model)모델은 총 7단계를 가지고 있다. 이는 <ins>**통신이 일어나는 과정을 7단계로 나누어 한눈에 보기 쉽고 트레픽의 흐름을 잘 파악하기 위하여 설계**</ins>되었다.
+
+1. **물리계층(Physical Layer)**: 물리계층은 OSI 모델의 최하위 계층에 속하며, 상위 계층에서 전송된 데이터를 물리 매체(허브, 라우터, 케이블 등)를 통해 다른 **시스템에 bit를 전송하는 역할**을 한다. 즉, **기계어를 전기적 신호로 바꿔서 와이어에 실어주는 것**이다.
+    - **Process Data Unit** : 비트(Bit)
+    - **프로토콜** : Modem, Cable, Fiber, RS-232C
+    - **장비** : 허브, 리피터
+    <br>
+2. **데이터링크계층(Data link Layer)**: 링크계층은 **네트워크 기기들 사이의 데이터 전송을 하는 역할**을 한다. 시스템 간의 **오류 없는 데이터 전송**을 위해 **패킷을 프레임**으로 구성하여 물리계층으로 전송한다. 3계층에서 정보를 받아 주소와 제어정보를 헤더와 테일에 추가한다.
+    - **Process Data Unit** : 프레임(Frame)
+    - **프로토콜** : 이더넷, MAC, PPP, ATM, LAN, Wifi
+    - **장비** : 브릿지, 스위치
+3. **네트워크계층(Network Layer)**: 네트워크계층은 기기에서 **데이터그램(Datagram)이 가는 경로를 설정해주는 역할**을 한다. <ins>**라우팅 알고리즘을 사용하여 최적의 경로를 선택하고 송신측으로부터 수신측으로 전송한다. 이때, 전송되는 데이터는 패킷 단위로 분할하여 전송한 후 다시 합쳐**<ins>진다. 2계층이 노드 대 노드 전달을 감독한다면, 3계층은 각 패킷이 목적지까지 성공적이고 효과적으로 전달되도록 한다.
+    - **Process Data Unit** : 패킷(Packet)
+    - **프로토콜** : IP, ICMP 등
+    - **장비** : 라우터, L3 스위치
+4. **전송계층(Transport Layer)**: 발신지에서 목적지(End-to-End) 간 제어와 에러를 관리한다. 패킷의 전송이 유효한지 확인하고 전송에 실패된 패킷을 다시 보내는 것과 같은 신뢰성있는 통신을 보장하며, 헤드에는 세그먼트가 포함된다. 주소 설정, 오류 및 흐름 제어, 다중화를 수행한다.
+    - **Process Data Unit** : 세그먼트(Segment)
+    - **프로토콜** : TCP, UDP , ARP, RTP
+    - **장비** : 게이트웨이, L4 스위치
+5. **세션계층(Session Layer)**: 통신 세션을 구성하는 계층으로, **포트(Port)번호를 기반으로 연결**한다. 통신장치 간의 상호작용을 설정하고 유지하며 동기화한다. 동시송수신(Duplex), 반이중(Half-Duplex), 전이중(Full-Duplex) 방식의 통신과 함께 체크 포인팅과 유후, 종료, 다시 시작 과정 등을 수행한다.
+    - **프로토콜** : NetBIOS, SSH, TLS
+6. **표현계층(Presentation Layer)**: 표현계층은 송신측과 수신측 사이에서 **데이터의 형식(png, jpg, jpeg...)을 정해**준다. 받은 데이터를 **코드 변환, 구문 검색, 암호화, 압축의 과정을 통해 올바른 표준방식으로 변환**해준다.
+    - **프로토콜** : JPG, MPEG, SMB, AFP
+7. **어플리케이션계층(Application Layer)**: 응용계층은 **사용자와 바로 연결되어 있으며 응용 SW를 도와주는 계층**이다. 사용자로부터 정보를 입력받아 하위 계층으로 전달하고 하위 계층에서 전송한 데이터를 사용자에게 전달한다. 파일 전송, DB, 메일 전송 등 여러가지 응용 서비스를 네트워크에 연결해주는 역할을 한다.
+    - **프로토콜** : DHCP, DNS, FTP, HTTP
+<br>
+
+#### 4.2 TCP/IP(4-Layers Internet Model)
+1. 링크계층(Link Layer) 
+2. 인터넷계층(Internet/Network Layer)
+3. 전송계층(Transport Layer):
+4. 응용계층(Application Layer):
+
+
+### 마치며
+
+<br>
+
+### reference
+[\[Definition-of-Network-Protocol/tistory/dinding\]](https://dinding.tistory.com/35) <br>
+[\[Definition-of-Network-Protocol-Functions/tistory/jjinfotech\]](https://jjinfotech.tistory.com/36) <br>
+[\[Definition-of-Network-Layers-OSI/tistory/jgnyang\]](https://jhnyang.tistory.com/194#recentComments) <br>
+[\[Definition-of-Network-Layers-OSI-examples\]](https://swalloow.tistory.com/56?category=676173) <br>
+[\[General-Definition-of-Network-Layers\]](http://blog.naver.com/PostView.nhn?blogId=demonicws&logNo=40117378644) <br>
+[\[Image-of-Network-Main/google-Image\]](https://www.google.com/search?q=network&tbm=isch&ved=2ahUKEwiRnpWb2L3rAhUNeZQKHYM9B14Q2-cCegQIABAA&oq=network&gs_lcp=CgNpbWcQAzIECAAQQzIECAAQQzICCAAyAggAMgQIABBDMgIIADICCAAyAggAMgIIADICCAA6BwgjEOoCECc6BQgAELEDOgQIABAYOgQIIxAnUILiD1jO-A9g5PkPaAVwAHgAgAF8iAHxCJIBBDAuMTCYAQCgAQGqAQtnd3Mtd2l6LWltZ7ABCsABAQ&sclient=img&ei=StxIX5HRNI3y0QSD-5zwBQ&bih=665&biw=1280#imgrc=EuzZ19pRAo0S5M&imgdii=aARG9gSlFAM_VM) <br>
+[\[Image-of-Network-Layers/UofT/yganjali/csc458/lecture\]](http://www.cs.toronto.edu/~yganjali/resources/Course-Handouts/CSC458/H02--CSC458.pdf) <br>
