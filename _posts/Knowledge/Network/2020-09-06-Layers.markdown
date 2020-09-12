@@ -68,8 +68,8 @@ tags: [Network,Protocol,OSI-7-Layers,Internet-4-Layers]
 #### 4.2 TCP/IP(4-Layers Internet Model)
 1. 링크계층(Link Layer) 
 2. 인터넷계층(Internet/Network Layer)
-3. 전송계층(Transport Layer):
-4. 응용계층(Application Layer):
+3. 전송계층(Transport Layer)
+4. 응용계층(Application Layer)
 
 
 ### 마치며
