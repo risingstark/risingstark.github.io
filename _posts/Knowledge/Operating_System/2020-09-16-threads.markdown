@@ -1,0 +1,77 @@
+---
+layout: post
+title: Operating System - 2. Threads
+date: 2020-09-16 00:00:00 +0300
+description:  # Add post description (optional)
+img:  Knowledge/Operating_System/2020-09-16-threads/Operating_System_Main.jpg
+fig-caption: # Add figcaption (optional)
+category: [Knowledge,Operating System]
+tags: [Operating System, threads]
+---
+
+### 1. 들어가며
+프로그램, 프로세스, 쓰레드, 어디서 많이 들어본적이 있지 않은가? 이 글을 통해 각자의 정의를 살펴보고 실제 컴퓨터 내부에서 쓰레드는 어떠한 역할을 하는지에 대해 알아보자.
+
+<br>
+
+### 2. 프로그램(Program), 프로세스(Process) 쓰레드(Thread) 정의
+- ***프로그램(Program)***: 하드드라이브에 저장되어 있는 파일이며 유저에 의해 **언제든지 실행될 수 있는 파일**이다.
+- ***프로세스(Process)***: **연속적으로 실행되고 있는 컴퓨터 프로그램**이다. 하드드라이브/외장드라이브에서 프로그램 파일을 메인 메모리에 불러와 **Code, Data, Heap 그리고 Stack영역으로 메모리 할당을 해준 뒤 실행**된다. 이때 **CPU로부터 PCB(Process Control Block)와 메모리 공간을 할당**받는다.
+- ***쓰레드(Thread)***: **하나의 프로세스 내에서 실행되는 작은 단위로 독립적으로 실행되며 제어가 가능한 흐름**이다. 하나의 프로세스에서 여러개의 쓰레드가 동시에 존재하고 실행 될 수 있고, 이를 멀티쓰레드라 부른다.
+
+<br>
+
+### 3. 쓰레드(Thread) 장점과 단점
+![Operating-System-Threads-Example]({{site.baseurl}}/assets/img/Knowledge/Operating_System/2020-09-16-threads/Operating-System-Thread-Example.png#center)
+- **장점**
+    - 하나의 프로세스내에서 여러개의 쓰레드가 존재할 경우, **Code, Data, Heap영역은 공유하되 Stack은 각자 가지고 있다**.(쓰레드간의 정보 공유가 빠르고 자원의 효율성을 극대화 시켜준다. 즉 응답시간을 줄여준다)
+    - 다중 쓰레드의 경우 서로간 간섭없이 독립적으로 수행이 가능하다.
+    - Context Switching 에 대한 오버헤드가 줄어 듭니다.
+
+    **Note: 쓰레드가 Stack만 각자 따로 가지고 있는 이유는 LIFO(Last In First Out)이라는 스택의 특성과 연관이 있는데, 코드와 데이터 힙 영역을 공유하는 것에는 큰 문제가 없지만, 스택 영역은 스택이 쌓이면 위에서부터 프로세스가 섞인 채로 순서대로 나오게 되므로 더 복잡해지기 때문에 원활한 실행 흐름을 위해 스택은 따로 독립적으로 존재하게 된다.**
+
+- **단점**
+    - 데이터를 사용에 따른 쓰레드간의 작업량이 많을 경우 충돌이 일어날 가능성이 있다(따라서 쓰레드 간에 통신할 경우에는 충돌 문제가 발생하지 않도록 동기화 문제를 해결해야한다)
+    - 동기화 작업을 제대로 하지 않으면, 락 문제가 일어날 수 있고, 데이터 병목 현상이 일어날수있습니다.
+    - 디버깅이 다소 까다롭다. (버그가 생성될 가능성이 크다)
+
+<br>
+
+### 4. 멀티 프로세스(Multi-Process) VS 멀티 쓰레드(Multi-Thread)
+- **4.1 멀티 프로세스(Multi-Process)** : 하나의 응용프로그램을 여러 개의 프로세스로 구성하여 각 프로세스가 하나의 작업(태스크)을 처리하도록 하는 것이다.
+![Operating-System-Multi-Process-Example]({{site.baseurl}}/assets/img/Knowledge/Operating_System/2020-09-16-threads/Operating-System-Multi-Process-Example.png#center)
+
+    - **장점**: 여러 개의 자식 프로세스 중 하나에 문제가 발생하면 그 자식 프로세스만 죽는 것 이상으로 다른 영향이 확산되지 않는다.
+    - **단점**
+        - **Context Switching에서의 오버헤드**: Context Switching 과정에서 캐쉬 메모리 초기화 등 무거운 작업이 진행되고 많은 시간이 소모되는 등의 오버헤드가 발생하게 된다. 프로세스는 각각의 독립된 메모리 영역을 할당받았기 때문에 프로세스 사이에서 공유하는 메모리가 없어, Context Switching가 발생하면 캐쉬에 있는 모든 데이터를 모두 리셋하고 다시 캐쉬 정보를 불러와야 한다.
+        - **프로세스 사이의 어렵고 복잡한 통신 기법(IPC)**: 프로세스는 각각의 독립된 메모리 영역을 할당받았기 때문에 하나의 프로그램에 속하는 프로세스들 사이의 변수를 공유할 수 없다
+
+<br>
+
+- **4.2 멀티 쓰레드(Multi-Thread)** : 하나의 응용프로그램을 여러 개의 스레드로 구성하고 각 스레드로 하여금 하나의 작업을 처리하도록 하는 것이다.
+![Operating-System-Multi-Thread-Example]({{site.baseurl}}/assets/img/Knowledge/Operating_System/2020-09-16-threads/Operating-System-Multi-Thread-Example.jpg#center)       
+    - **장점** 
+        - **시스템 자원 소모 감소 (자원의 효율성 증대)**: 프로세스를 생성하여 자원을 할당하는 시스템 콜이 줄어들어 자원을 효율적으로 관리할 수 있다.
+        - **시스템 처리량 증가 (처리 비용 감소)**: 스레드 간 데이터를 주고 받는 것이 간단해지고 시스템 자원 소모가 줄어들게 된다. 즉 ,스레드 사이의 작업량이 작아 Context Switching이 빠르다.
+        - **간단한 통신 방법으로 인한 프로그램 응답 시간 단축**: 스레드는 프로세스 내의 Stack 영역을 제외한 모든 메모리를 공유하기 때문에 통신의 부담이 적다.
+    - **단점**
+        - 초기 설계에 많은 주의를 기울여야하며 디버깅이 어렵다.
+        - 단일 프로세스 시스템의 경우 효과를 기대하기 어렵다.
+        - 다른 프로세스에서 스레드를 제어할 수 없다. (즉, 프로세스 밖에서 스레드 각각을 제어할 수 없다.)
+        - **멀티 스레드의 경우 자원 공유의 문제가 발생한다. (동기화 문제)**
+        - **하나의 스레드에 문제가 발생하면 전체 프로세스가 영향**을 받는다.
+
+<br>
+
+### 5. 마치며
+Comming soon -> Context Swhitching, Thread 동기화, etc 
+
+<br>
+
+### reference
+[\[Image-of-Operating-System-Main/Komando\]](https://www.komando.com/downloads/zorin-os-alternative-to-windows-and-apple/535834/) <br>
+[\[Image-of-Operating-System-Threads-Example/tistory/gmlwjd9405\]](https://gmlwjd9405.github.io/2018/09/14/process-vs-thread.html) <br>
+[\[Operating-System-Process-Threads-General/blog-skby\]](http://blog.skby.net/%EC%93%B0%EB%A0%88%EB%93%9C-thread/) <br>
+[\[Operating-System-Process-Threads/tistory-devuna\]](https://devuna.tistory.com/21) <br>
+[\[Operating-System-Process-Threads-Concept\]](https://velog.io/@pa324/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-Thread%EC%8A%A4%EB%A0%88%EB%93%9C-rqk2kafwhw) <br>
+[\[Difference-between-Multi-Process-and-Multi-Thread/gmlwjd9405\]](https://gmlwjd9405.github.io/2018/09/14/process-vs-thread.html) <br>
