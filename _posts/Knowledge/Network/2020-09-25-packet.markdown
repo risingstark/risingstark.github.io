@@ -1,0 +1,74 @@
+---
+layout: post
+title: Network - 3. Packet Switching
+date: 2020-09-28 00:00:00 +0300
+description:  # Add post description (optional)
+img:  Knowledge/Network/2020-09-28-packet/Network-Main.jpg
+fig-caption: # Add figcaption (optional)
+category: [Knowledge,Network]
+tags: [Network,Packet,Packet Switching,Virtual Circuit, Datagram]
+---
+
+### 1.들어가며
+인터넷의 대중화가 급격하게 발전한 이후 컴튜터간의 이동 통신이 무척이나 자유로워 졌다. 네트워크간의 통신에서 데이터를 주고 받을때, 패킷이라는 단위를 사용하는데, 이 글에서는 패킷의 정의와 어떠한 방식으로 이러한 패킷이 하나의 컴튜터에서 다른 컴퓨터로 이동하는지, 정보를 주고받는지에 대해 알아보자.
+
+<br>
+
+### 2.Packet & Packet Switching 정의
+- **Packet** 
+    : OSI-7 layers에서 3계층인 네트워크 계층에 속하며, **<ins>데이터 혹은 정보를 일정한 크기로 나눈 작은 단위</ins>**를 뜻한다. 통사적으로 **헤더(Header), 데이터(Data) 그리고 꼬리(Tail)로 구성**되어 있으며, **헤더에는 패킷의 주소 등 주요 제어 정보**들이 포함된다. **꼬리부분에는 에러 검출 정보**등이 담겨있으며, 생략되는 경우도 있다.
+    ![Network-Packet-Example]({{site.baseurl}}/assets/img/Knowledge/Network/2020-09-28-packet/Network-Packet-Example.gif#center)<br>
+- **Packet Switching**
+    : **<ins>패킷교환 방식은, 패킷이라고 불리는 비교적 적은 데이터 단위가 각 패킷에 담긴 목적지 주소를 기반으로 하여 네트웍을 통해 발송되는 네트웍의 한 형태</ins>**이다. 통신 메시지를 패킷으로 나눔으로써 네트웍 내의 동일한 데이터 경로를 여러 명의 사용자들이 공유할 수 있게 된다. 송신자와 수신자간의 이러한 형태의 통신을 비연결형이라고 부른다. 인터넷상의 대부분의 트래픽은 패킷교환 방식을 사용하며, 인터넷은 기본적으로 비연결형 네트웍이다.
+
+<br>
+
+### 3. Packet Switching 교환 방식
+: 네트워크 계층의 가장 중요한 역할은 패킷의 전송 경로를 결정하는 것이다. 데이터를 패킷 교환 방식으로 전송하는 네트워크는 가상 회선과 데이터그램이라는 두 가지 전송 방식을 지원한다. 
+- **가상 회선(Virtual Circuit)**은 데이터를 패킷 단위로 나누어 전송하지만 송수신 호스트 사이에 가상 연결을 설정하므로 모든 패킷의 전달 경로가 같다.  
+- **데이터그램(Datagram)**은 패킷의 경로 선택이 독립적이다. 패킷교환에서는 정보가 교환기의 기억장치에 축적되기 때문에 1개의 통신회선에서 통신의 공백시간을 융통하고 있어서 회선의 사용효율을 높이는 패킷 다중통신을 할 수 있다.
+
+![Network-Virtual-Circuits-and-Datagram-Example]({{site.baseurl}}/assets/img/Knowledge/Network/2020-09-28-packet/Network-Virtual-Circuits-and-Datagram-Example.jpg#center)
+
+- **3.1 가상회선(Virtual Circuit)**
+    - **<ins>가상 회선 방식은 연결형 서비스를 지원하기 위한 기능이며, 하나의 연결을 통해 전송되는 패킷의 경로는 동일하다.</ins>** 가상 회선 방식에서 패킷을 전송하는 방식은 시간의 흐름에 따라 보여준다. 가상 회선을 통해 패킷이 동일한 경로로 전송됨을 알 수 있다. 이처럼 똑같은 전송 경로로 패킷을 전송하면 패킷의 도착 순서와 출발 순서가 같다.
+    - **가상 회선 과정** 
+        1. 송수신 호스트 사이에 설정된 가상의 단일 파이프를 통해 송신 호스트가 입력단으로 패킷을 송신한다.
+        2. 수신 호스트가 출력단에서 패킷을 수신한다. 따라서 모든 패킷이 하나의 파이프로 표현되는 동일 경로로 전송되므로 패킷이 도착하는 순서가 보낸 순서와 같다. 
+    - 예: Telephone, Telecommunication
+- **3.2 데이터그램(Datagram)**
+    - **<ins>패킷 교환에서 비연결형 서비스를 이용해 패킷을 독립적으로 전송하는 것을 데이터그램 방식이라고 한다.</ins>** 데이터그램 방식은 패킷이 전달되기 전에 연결을 설정하는 과정이 없으므로, 경로를 미리 할당하지 않는다. 따라서 전송되는 패킷들이 독립 경로로 전달된다. 
+    - **일반적으로 데이터그램 방식은 전송할 정보의 양이 적거나 상대적으로 신뢰성이 중요하지 않은 환경에서 사용**한다. 
+    - **가상 회선 방식과 달리 설정된 연결 경로가 없으므로, 송신 호스트가 전송한 패킷이 독립적으로 라우팅**됨을 알 수 있다. 
+    - 송신 호스트가 전송한 패킷은 **보낸 순서와 무관한 순서로 수신 호스트에게 전달**되므로 **도착 순서가 바뀔 수 있다**. 패킷은 1, 2번 패킷과 다른 경로를 선택할 수 있으며, 각 전송 경로의 속도는 네트워크 혼잡도 등 때문에 가변적이다. 따라서 목적지에 도착하는 순서를 미리 예측할 수 없고, 송신 호스트에서 늦게 출발한 3번 패킷이 2번 패킷보다 먼저 도착할 수 있다.
+    -
+<br>
+
+### 4. Packet Switching 장단점
+- **장점**
+    - **회선 이용률이 높으며 속도 변환과 프로토콜 변환이 가능**하다(음성 통신도 가능)
+    - 경로선택, 전송 여부 판별 및 장애 유무 등 상황에 따라 교환기 및 회선 등의 장애가 발생하더라도 패킷의 우회 전송이 가능하므로 **전송의 신뢰성이 보장**된다.
+    - 디지털 전송이므로 인접 교환기 간 또는 단말기와 교환기 간에 전송 오류검사를 실시 하여 **오류 발생 시 재전송이 가능**하다.
+    - **다중화를 사용하므로 사용 효율이 높다.**
+    - **전송 속도, 전송 제어 절차가 다르더라도 교환망이 변환 처리를 제공**하므로 통신이 가능하다.
+
+- **단점**
+    -** 경로에서의 각 교환기에서 다소의 지연**이 발생한다
+    - 이러한 지연은 가변적이다. 즉, **전송량이 증가함에 따라 지연이 더욱 심할 수도 있다.**
+    - 패킷별 헤더 추가로 인한 **오버헤드 발생 가능성**이 존재한다.
+
+<br>
+
+### 5. 마치며
+통신을 주고받을때 Packet Switching과 함께 항상 따라다니는 Circuit Swiching이 존재한다. 서로의 차이점을 아는것 또한 네트워크 공부에 중요한 부분이므로, 추후 글에서 서로의 장단점과 쓰임새에 대해 알아볼 예정이다. 서버쪽 관련 직업을 구하기 위해선 깊은 네트워크의 지식이 필수이다. 
+**기본에 충실한 프로그래머가 되자.**
+
+<br>
+
+### reference
+[\[Image-of-Network-Main/google-Image\]](https://www.google.com/search?q=network&tbm=isch&ved=2ahUKEwiRnpWb2L3rAhUNeZQKHYM9B14Q2-cCegQIABAA&oq=network&gs_lcp=CgNpbWcQAzIECAAQQzIECAAQQzICCAAyAggAMgQIABBDMgIIADICCAAyAggAMgIIADICCAA6BwgjEOoCECc6BQgAELEDOgQIABAYOgQIIxAnUILiD1jO-A9g5PkPaAVwAHgAgAF8iAHxCJIBBDAuMTCYAQCgAQGqAQtnd3Mtd2l6LWltZ7ABCsABAQ&sclient=img&ei=StxIX5HRNI3y0QSD-5zwBQ&bih=665&biw=1280#imgrc=EuzZ19pRAo0S5M&imgdii=aARG9gSlFAM_VM)<br>
+[\[Image-of-Packet-Example\]](https://www.google.com/search?q=packet&sxsrf=ALeKk02-tPP1Yhsig-4j6CIBkhmAK4bx3Q:1601256556550&source=lnms&tbm=isch&sa=X&ved=2ahUKEwif9vzB2YrsAhXMGKYKHUwWDI0Q_AUoAXoECBcQAw&biw=1280&bih=665) <br>
+[\[Image-of-Virtual-Circuit-and-Datagram-Example/Google-Image\]](https://www.google.com/search?q=virtual+circuit&sxsrf=ALeKk00e_iap1ZjAq6hJ32X4v66TO4aUjQ:1601255650186&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjM9OSR1orsAhVCE6YKHW3bALoQ_AUoAXoECBQQAw&biw=1280&bih=665#imgrc=EsJSeuU5MtKWUM)<br>
+[\[General-Definition-of-Packet-Swithicng/wiki\]](https://ko.wikipedia.org/wiki/%ED%8C%A8%ED%82%B7_%EA%B5%90%ED%99%98) <br>
+[\[Virtual-Circuit-and-Datagram-Idea/tistory/bnzn2426\]](https://bnzn2426.tistory.com/m/55?category=770232) <br>
+[\[Cons-and-Pros-of-Packet-Switching/tistory/nanglam\]](https://security-nanglam.tistory.com/178) <br>
