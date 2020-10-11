@@ -1,0 +1,73 @@
+---
+layout: post
+title: Database - 5. Schema
+date: 2020-10-11 00:00:00 +0300
+description:  # Add post description (optional)
+img:  Knowledge/Database/2020-10-11-schema/Database-Main.jpg
+fig-caption: # Add figcaption (optional)
+category: [Knowledge,Database]
+tags: [Database,Schema]
+---
+
+### 1. 들어가며
+**스키마(schema)**는 원래 **심리학(Psychology)**에서 나온 용어인데 과거의 반응이나 경험에 의해 생성된 생물체의 지식 또는 반응체계로서 환경에 대해 적응하고 대처하도록 하는 역할을 담당한다. 이러한 스키마 덕분에 생물체는 환경에 적응하고 살아갈 수 있다. 데이터베이스에서 스키마는 어떤식으로 정의되어 있고 그 쓰임새와 특징들을 이 글을 통해 알아보자.
+<br>
+
+### 2. Database Schema 정의
+**<ins>스키마(schema)는 데이터베이스에서 자료의 구조, 표현 방법, 자료 간의 관계를 형식 언어로 정의한 구조</ins>**이다. 
+
+특징
+- 데이터베이스에서 자료의 구조, 자료의 표현방법, 자료 간의 관계를 형식 언어로 정의한 구조
+- 데이터베이스의 정보 구조를 설계
+- 데이터베이스의 구조와 제약조건에 대한 전반적인 명세를 기술한 것
+- 데이터베이스를 구성하는 개체, 속성, 관계 및 데이터 조작시 값들이 갖는 전반적인 조건을 정의
+- 법칙에 따라 데이터를 입력함으로서 정보의 구조를 설계
+<br>
+
+### 3. Database Schema 분류
+![Database-Schema-Example]({{site.baseurl}}/assets/img/Knowledge/Database/2020-10-11-schema/Database-Schema-Example.png#center)
+
+1. **물리적 데이터베이스 스키마(Physical Database Schema)**
+- 실제로 데이터 저장소에 저장되는 스키마 종류의 일종으로 파일, 인덱스 기타등등의 형대로 저장되어 있다. 데이터가 Secondary Storage에 어떠한 형태로 저장될 것인지를 정의하는 스키마이다.
+2. **논리적 데이터베이스 스키마(Logical Database Schema)**
+- 데이터를 저장하는데에 있어 논리적인 제약들을 정의해놓은 스키마이다. 이것에는 테이블과 뷰, 기타등등의 사전적인 정의와 관련해 데이터의 무결성을 보존하는데 도움을 주는 스키마이다.
+
+<br>
+
+### 4. Database Schema 3계층
+
+![Database-Schema-3-Level-Example]({{site.baseurl}}/assets/img/Knowledge/Database/2020-10-11-schema/Database-Schema-3-Levels-Example.png#center)
+
+1. ***외부 스키마 = 사용자 뷰(External-Layout-View)***
+- 외부스키마는 사용자나 응용프로그래머가 각 개인의 입장에서 필요로 하는 데이터베이스의 논리적 구조를 정의한 것이다.
+- 외부스키마는 전체 데이터베이스의 한 논리적인 부분으로 볼 수 있으므로 서브 스키마(Sub Schema)라고도 한다.
+- 하나의 데이터베이스 시스템에는 여러개의 외부 스키마가 존재할 수 있으며 하나의 외부 스키마를 여러개의 응용 프로그램이나 사용자가 공용할 수도 있다.
+- 같은 데이터베이스에 대해서도 서로 다른 관점을 정의할 수 있도록 허용한다.
+- 일반 사용자는 질의어(SQL)을 이용하여 DB를 쉽게 사용할 수 있다.
+- 응용 프로그래머는 C, JAVA등의 언어를 사용하여 DB에 접근한다.
+2. ***개념 스키마 = 전체적인 뷰(Conceptual Layers)***
+- 조직체 전체를 관장하는 입장에서 DB를 정의한 것이다.
+- 조직체의 모든 응용시스템에서 필요로 하는 개체 관계 그리고 제약조건들을 포함한다.
+- DB를 효율적으로 관리하는데 필요한 접근권한, 보안정책, 무결성 규칙등에 관한 사항들도 추가적으로 포함한다.
+- 개념스캐마는 그냥 스캐마 라고 칭하고 DB전체를 기술한 것이라서 한개밖에 존재할수가 없다.
+- 데이버 테비으스이 전체적인 논리적 구조이다.
+- 개체간의 관계와 제약조건 명시하며 데이터 베이스의 접근 권한 보안 및 무결성 규칙에 관한 명세를 정의한 것이다.
+- 기관이나 조직체의 관점에서 데이터베이스를 정의하며, 데이터베이스 관리자 (DBA)에 의해 구성한다.
+3. ***내부 스키마 = 저장 스키마(Physical Schema)***
+- 내부 스키마는 물리적 저장장치의 입장에서 본 데이터베이스 구조로, 물리적인 저장장치와 밀접한 계층이다.
+- 내부 스키마는 실제로 데이터베이스에 저장될 레코드의 물리적인 구조를 정의하고, 저장 데이터 항목의 표현방법, 내부 레코드의 물리적 순서등을 나타낸다.
+- 시스템 프로그래머나 시스템 설게자가 보는 관점의 스키마이다.
+
+<br>
+
+### 5. 마치며
+시작이 반이라는 말이 있다. 처음부터 잘못된 스카마를 설계할 경우 프로잭트 중반에 혹은 이후에 수정을 하는것은 너무나도 힘든 작업이다. 그렇기 때문에 사전에 꼼꼼히 디자인하고 설계하는것이 비용적인 측면이나 시간적으로 도움이 될것이다. 성급해하지 말고 조금 늦더라도 제대로 하자.
+
+<br>
+
+### reference
+[\[Image-of-Database-Main/blogs-oracle/database\]](https://blogs.oracle.com/database/autonomous-database-what-does-it-mean) <br>
+[\[Image-of-Database-Schema-Classification-Example/tutorialspoint\]](https://www.tutorialspoint.com/dbms/dbms_data_schemas.htm) <br>
+[\[Image-of-Database-Schema-3-Levels-Example/medium/nixis-istitute\]](https://medium.com/nixis-institute/dbms-three-level-architecture-c96ba7a21f5b) <br>
+[\[Definition-of-Database-Schema/lucidchart\]](https://www.lucidchart.com/pages/database-diagram/database-schema) <br>
+[\[Definition-of-Database-Schema-3-hierarchy/wiki.hash\]](http://wiki.hash.kr/index.php/%EC%8A%A4%ED%82%A4%EB%A7%88) <br>
