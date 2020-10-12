@@ -73,6 +73,7 @@ tags: [Network,Protocol,OSI-7-Layers,Internet-4-Layers]
 
 
 ### 마치며
+TCP/IP는 다음글인 **Network - 2. TCP/IP**에서 자세히 소개 하고 있으니 참고 하길 바란다.
 
 <br>
 
