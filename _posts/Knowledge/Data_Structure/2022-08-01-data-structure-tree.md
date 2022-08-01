@@ -14,7 +14,7 @@ Data structures such as list(Arrays), linked list, stack and queue are linear da
 
 <br>
 The different tree data structures allow quicker and easier access to the data as it is a non-linear data structure. In this part, I would like to introduce basic knowledge of a tree data structure.
-<br>
+
 
 ### Tree Definition
 **<ins>A tree is an abstract model and can be defined as a collection of entities called nodes linked together through edges in a hierarchical structure.</ins>** They don’t have any cyclic relations and there is only one path to a particular node.
@@ -36,7 +36,6 @@ The different tree data structures allow quicker and easier access to the data a
 
 ### End
 Tree is not only a well known data structure that loved from all software engineer but also basic concept to understand as a software engineer. It will follow you forever in software industry. So, Please make sure you understand and keep it as your best friend.
-
 
 <br>
 
