@@ -3,7 +3,7 @@ layout: post
 title: Tree Data Structure
 date: 2022-08-01 00:00:00 +0300
 description:  # Add post description (optional)
-img: Knowledge/Data_Structure/2022-08-21-tree/Data-Structure-Tree-Main.jpeg
+img: Knowledge/Data_Structure/2022-08-01-tree/Data-Structure-Tree-Main.jpeg
 fig-caption: # Add figcaption (optional)
 category: [Knowledge,Data Structure]
 tags: [Data Structure, Tree]
@@ -34,7 +34,7 @@ The different tree data structures allow quicker and easier access to the data a
 
 <br>
 
-### end
+### End
 Tree is not only a well known data structure that loved from all software engineer but also basic concept to understand as a software engineer. It will follow you forever in software industry. So, Please make sure you understand and keep it as your best friend.
 
 
